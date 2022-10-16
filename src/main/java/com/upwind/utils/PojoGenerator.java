@@ -9,6 +9,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  MyBatis 逆向工程生成类
+ */
 public class PojoGenerator {
 
     public static void main(String[] args) throws Exception {

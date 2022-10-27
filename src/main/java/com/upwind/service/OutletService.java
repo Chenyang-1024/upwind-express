@@ -28,7 +28,7 @@ public interface OutletService {
      * @param password
      * @return
      */
-    boolean outletLogin (String phone, String password);
+    Outlet outletLogin (String phone, String password);
 
     /**
      * 根据 id 获取网点信息
@@ -42,21 +42,22 @@ public interface OutletService {
      * @param title
      * @return
      */
-    Outlet getOutletByTitle (String title);
+    List<Outlet> getOutletByTitle (String title);
 
     /**
      * 获取距离用户最近的网点
+     * @param consumer_id
      * @param province
      * @param city
      * @param strict
      * @param detail_addr
      * @return
      */
-    List<Outlet> getClostestOutlet (String province, String city, String strict, String detail_addr);
+    List<Outlet> getClostestOutlet (Integer consumer_id, String province, String city, String strict, String detail_addr);
 
 //    /**
 //     * 转让网点（修改网点负责人）
-//     * 进行转让时需要当前负责人输出当前账号和密码，确定转让者后，新负责人账号密码初始化为默认密码
+//     * 进行转让时需要当前负责人输出当前账号和密码，确定转让者后，新负责人账号密码初始化为默认密码：123456
 //     * 新负责人需要尽快登录，其第一次登录时需要修改账号密码
 //     * @param name
 //     * @param phone

@@ -46,14 +46,13 @@ public interface OutletService {
 
     /**
      * 获取距离用户最近的网点
-     * @param consumer_id
      * @param province
      * @param city
-     * @param strict
+     * @param district
      * @param detail_addr
      * @return
      */
-    List<Outlet> getClostestOutlet (Integer consumer_id, String province, String city, String strict, String detail_addr);
+    List<Outlet> getClostestOutlet (String province, String city, String district, String detail_addr);
 
 //    /**
 //     * 转让网点（修改网点负责人）
@@ -83,5 +82,11 @@ public interface OutletService {
      * @return
      */
     boolean updateOutlet (Outlet outlet);
+
+    /**
+     * 查询系统所有网点
+     * @return
+     */
+    List<Outlet> getAllOutlet ();
 
 }

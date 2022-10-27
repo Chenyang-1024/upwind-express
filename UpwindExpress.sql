@@ -5,7 +5,7 @@ use Upwind_Express;
 
 CREATE TABLE consumer (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  phone int(11) NOT NULL COMMENT '用户手机号/账号',
+  phone varchar(11) NOT NULL COMMENT '用户手机号/账号',
   password varchar(25) NOT NULL COMMENT '账号密码',
   name varchar(10) NOT NULL COMMENT '用户姓名',
   gender varchar(5) NOT NULL COMMENT '用户性别',
@@ -28,7 +28,7 @@ CREATE TABLE address (
 CREATE TABLE outlet (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '网点id',
   title varchar(100) NOT NULL COMMENT '网点名称',
-  phone int(11) NOT NULL COMMENT '负责人手机号/账号',
+  phone varchar(11) NOT NULL COMMENT '负责人手机号/账号',
   password varchar(25) NOT NULL COMMENT '账号密码',
   name varchar(10) NOT NULL COMMENT '负责人姓名',
   province varchar(20) NOT NULL COMMENT '省',
@@ -41,7 +41,7 @@ CREATE TABLE outlet (
 CREATE TABLE courier (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '快递员id',
   job_no varchar(11) DEFAULT NULL COMMENT '工号',
-  phone int(11) NOT NULL COMMENT '快递员手机号/账号',
+  phone varchar(11) NOT NULL COMMENT '快递员手机号/账号',
   password varchar(25) NOT NULL COMMENT '账号密码',
   name varchar(10) NOT NULL COMMENT '快递员姓名',
   gender varchar(5) NOT NULL COMMENT '快递员性别',
@@ -79,7 +79,7 @@ CREATE TABLE receivewise (
 
 CREATE TABLE express (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '快递id',
-  order_num varchar(11) DEFAULT NULL COMMENT '快递单号',
+  order_no varchar(11) DEFAULT NULL COMMENT '快递单号',
   category varchar(20) NOT NULL COMMENT '物品类型',
   weight float(7,3) DEFAULT NULL COMMENT '快递重量',
   freight float(7,2) DEFAULT NULL COMMENT '快递运费',
@@ -96,7 +96,7 @@ CREATE TABLE express (
 
 CREATE TABLE manager (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '管理员id',
-  account varchar(11) NOT NULL COMMENT '管理员账号',
+  account varchar(11) DEFAULT NULL COMMENT '管理员账号',
   password varchar(25) NOT NULL COMMENT '账号密码',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8

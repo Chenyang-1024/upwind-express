@@ -46,6 +46,7 @@ CREATE TABLE courier (
   name varchar(10) NOT NULL COMMENT '快递员姓名',
   gender varchar(5) NOT NULL COMMENT '快递员性别',
   identity_num varchar(18) DEFAULT NULL COMMENT '快递员身份证号',
+  approved_flag int(1) NOT NULL COMMENT '审核是否通过',
   outlet_id int(10) NOT NULL COMMENT '网点id',
   PRIMARY KEY(id),
   CONSTRAINT fk_outlet_courier FOREIGN KEY (outlet_id) REFERENCES outlet (id)

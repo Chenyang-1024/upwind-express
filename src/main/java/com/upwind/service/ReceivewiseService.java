@@ -2,6 +2,8 @@ package com.upwind.service;
 
 import com.upwind.pojo.Receivewise;
 
+import java.util.List;
+
 public interface ReceivewiseService {
 
     /**
@@ -31,4 +33,18 @@ public interface ReceivewiseService {
      * @return
      */
     Receivewise getReceivewiseById (Integer id);
+
+    /**
+     * 根据收件人 id 查询收件信息
+     * @param receiver_id
+     * @return
+     */
+    List<Receivewise> getReceivewiseByReceiverId (Integer receiver_id);
+
+    /**
+     * 根据派件快递员 id 获取收件信息
+     * @param courier_id
+     * @return
+     */
+    List<Receivewise> getReceivewiseByCourierId (Integer courier_id);
 }

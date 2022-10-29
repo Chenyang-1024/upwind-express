@@ -2,6 +2,8 @@ package com.upwind.service;
 
 import com.upwind.pojo.Sendwise;
 
+import java.util.List;
+
 public interface SendwiseService {
 
     /**
@@ -31,5 +33,19 @@ public interface SendwiseService {
      * @return
      */
     Sendwise getSendwiseById (Integer id);
+
+    /**
+     * 根据寄件人 id 查询寄件信息
+     * @param sender_id
+     * @return
+     */
+    List<Sendwise> getSendwiseBySenderId (Integer sender_id);
+
+    /**
+     * 根据收寄快递员 id 获取寄件信息
+     * @param courier_id
+     * @return
+     */
+    List<Sendwise> getSendwiseByCourierId (Integer courier_id);
 
 }

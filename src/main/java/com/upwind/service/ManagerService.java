@@ -24,4 +24,12 @@ public interface ManagerService {
      * @return
      */
     boolean updateManager (Manager manager);
+
+    /**
+     * 系统管理员登录
+     * @param account
+     * @param password
+     * @return
+     */
+    Manager managerLogin (String account, String password);
 }

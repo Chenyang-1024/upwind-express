@@ -1,29 +1,23 @@
 package com.upwind.DTO;
 
-import com.upwind.pojo.Consumer;
-import com.upwind.pojo.Express;
-import com.upwind.pojo.Receivewise;
-import com.upwind.pojo.Sendwise;
+import com.upwind.pojo.*;
 
-import java.util.Date;
-
-public class CourierExpressDTO {
+public class OutletExpressDTO {
 
     private Express express;
     private Sendwise sendwise;
     private Consumer sender;
     private Receivewise receivewise;
     private Consumer receiver;
-    // 表示快递订单是经该快递员收寄还是投递
-    private String action;
+    private Courier courier;
 
-    public CourierExpressDTO(Express express, Sendwise sendwise, Consumer sender, Receivewise receivewise, Consumer receiver, String action) {
+    public OutletExpressDTO(Express express, Sendwise sendwise, Consumer sender, Receivewise receivewise, Consumer receiver, Courier courier) {
         this.express = express;
         this.sendwise = sendwise;
         this.sender = sender;
         this.receivewise = receivewise;
         this.receiver = receiver;
-        this.action = action;
+        this.courier = courier;
     }
 
     public Express getExpress() {
@@ -66,24 +60,23 @@ public class CourierExpressDTO {
         this.receiver = receiver;
     }
 
-    public String getAction() {
-        return action;
+    public Courier getCourier() {
+        return courier;
     }
 
-    public void setAction(String action) {
-        this.action = action;
+    public void setCourier(Courier courier) {
+        this.courier = courier;
     }
 
     @Override
     public String toString() {
-        return "CourierExpressDTO{" +
+        return "OutletExpressDTO{" +
                 "express=" + express +
                 ", sendwise=" + sendwise +
                 ", sender=" + sender +
                 ", receivewise=" + receivewise +
                 ", receiver=" + receiver +
-                ", action='" + action + '\'' +
+                ", courier=" + courier +
                 '}';
     }
-
 }

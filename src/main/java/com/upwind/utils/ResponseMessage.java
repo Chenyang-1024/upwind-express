@@ -11,14 +11,14 @@ public class ResponseMessage {
 
     private String code;
     private String msg;
-    private Map<String, Object> objectMap = new HashMap<>();
+    private Map<String, Object> dataMap = new HashMap<>();
 
     public ResponseMessage() {}
 
-    public ResponseMessage(String code, String msg, Map<String, Object> objectMap) {
+    public ResponseMessage(String code, String msg, Map<String, Object> dataMap) {
         this.code = code;
         this.msg = msg;
-        this.objectMap = objectMap;
+        this.dataMap = dataMap;
     }
 
     public String getCode() {
@@ -37,16 +37,16 @@ public class ResponseMessage {
         this.msg = msg;
     }
 
-    public Map<String, Object> getObjectMap() {
-        return objectMap;
+    public Map<String, Object> getDataMap() {
+        return dataMap;
     }
 
-    public void setObjectMap(Map<String, Object> objectMap) {
-        this.objectMap = objectMap;
+    public void setDataMap(Map<String, Object> dataMap) {
+        this.dataMap = dataMap;
     }
 
     public ResponseMessage addObject (String key, Object value) {
-        this.objectMap.put(key, value);
+        this.dataMap.put(key, value);
         return this;
     }
 
@@ -73,7 +73,7 @@ public class ResponseMessage {
         return "ResponseMessage{" +
                 "code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
-                ", objectMap=" + objectMap +
+                ", objectMap=" + dataMap +
                 '}';
     }
 }

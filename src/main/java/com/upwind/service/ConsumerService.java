@@ -26,7 +26,7 @@ public interface ConsumerService {
      * @param password  用户输入的密码
      * @return          用户输入的 id 和密码是否匹配。 true 表示匹配成功，false 表示匹配失败
      */
-    boolean consumerLogin(String phone, String password);
+    Consumer consumerLogin(String phone, String password);
 
     /**
      * 获取所有用户信息

@@ -16,10 +16,11 @@ public interface ExpressService {
      * 新增快递订单
      * 用户下单时，物流状态为 待收寄
      * @param detailExpressDTO
-     * @param outlet_id
+     * @param send_outletId
+     * @param receive_outletId
      * @return
      */
-    Integer insertExpress (DetailExpressDTO detailExpressDTO, Integer outlet_id);
+    Integer insertExpress (DetailExpressDTO detailExpressDTO, Integer send_outletId, Integer receive_outletId);
 
     /**
      * 删除快递订单

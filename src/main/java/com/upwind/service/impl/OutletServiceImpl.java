@@ -67,9 +67,7 @@ public class OutletServiceImpl implements OutletService {
     // 网点名称不要求唯一的情况下，需要在查询结果显示其地址信息以区分不同网点
     // 以下实现方式为网点名称不要求唯一，因此查询将返回网点列表
     public List<Outlet> getOutletByTitle(String title) {
-        OutletExample outletExample = new OutletExample();
-        outletExample.createCriteria().andTitleEqualTo(title);
-        return outletMapper.selectByExample(outletExample);
+        return outletMapper.fuzzySelectByTitle(title);
     }
 
     @Override

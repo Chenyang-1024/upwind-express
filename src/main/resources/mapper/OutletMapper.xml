@@ -93,6 +93,12 @@
     -->
     id, title, phone, password, name, province, city, district, detail_addr
   </sql>
+  <select id="fuzzySelectByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        *
+    from outlet
+    where title like concat('%',#{fuzzyTitle,jdbcType=VARCHAR},'%')
+  </select>
   <select id="selectByExample" parameterType="com.upwind.pojo.OutletExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

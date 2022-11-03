@@ -39,6 +39,7 @@ public interface OutletService {
 
     /**
      * 根据网点名称获取网点
+     * 模糊查询
      * @param title
      * @return
      */

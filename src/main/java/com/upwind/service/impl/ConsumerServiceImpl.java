@@ -26,14 +26,17 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
-    public boolean consumerLogin(String phone, String password){
+    public Consumer consumerLogin(String phone, String password){
         //从数据库中查询出手机号对应的用户信息
         ConsumerExample consumerExample = new ConsumerExample();
         consumerExample.createCriteria().andPhoneEqualTo(phone);
-        List<Consumer> result = consumerMapper.selectByExample(consumerExample);
-
-        //查询到信息且密码一致的时候返回 true，否则返回 false
-        return result.size() != 0 && result.get(0).getPassword().equals(password);
+        List<Consumer> consumerList = consumerMapper.selectByExample(consumerExample);
+        if (consumerList.size() > 0) {
+            Consumer consumer = consumerList.get(0);
+            if (password.equals(consumer.getPassword()))
+                return consumer;
+        }
+        return null;
     }
 
     @Override

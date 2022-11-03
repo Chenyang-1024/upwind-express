@@ -11,7 +11,9 @@ import com.upwind.utils.ExpressStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,26 +30,43 @@ public class ExpressServiceImpl implements ExpressService {
     @Autowired
     private CourierService courierService;
 
+
     @Override
-    // TODO
-    public Integer insertExpress(DetailExpressDTO detailExpressDTO, Integer outlet_id) {
+    public Integer insertExpress(DetailExpressDTO detailExpressDTO, Integer send_outletId, Integer receive_outletId) {
         Sendwise sendwise = detailExpressDTO.getSendwise();
         Receivewise receivewise = detailExpressDTO.getReceivewise();
         Express express = detailExpressDTO.getExpress();
-        Integer sendwise_id = sendwiseService.insertSendwise(sendwise);
-        Integer receivewise_id = receivewiseService.insertReceivewise(receivewise);
-        if (sendwise_id == null || receivewise_id == null)
+
+        SecureRandom secureRandom = new SecureRandom();
+        // 网点随机安排收寄快递员，存储寄件信息
+        List<Courier> sendCourierList = courierService.getCourierByOutletId(send_outletId);
+        if (sendCourierList.size() == 0)
             return null;
-        // 安排收寄快递员，存储寄件信息
-        express.setSendwise_id(sendwise_id);
+        Courier sendCourier = sendCourierList.get(secureRandom.nextInt(sendCourierList.size()));
+        sendwise.setCourier_id(sendCourier.getId());
+        if (sendwiseService.insertSendwise(sendwise) == null)
+            return null;
+        express.setSendwise_id(sendwise.getId());
+        // 网点随机安排派件快递员，存储收件信息
+        List<Courier> receiveCourierList = courierService.getCourierByOutletId(receive_outletId);
+        if (receiveCourierList.size() == 0)
+            return null;
+        Courier receiveCourier = receiveCourierList.get(secureRandom.nextInt(receiveCourierList.size()));
+        receivewise.setCourier_id(receiveCourier.getId());
+        if (receivewiseService.insertReceivewise(receivewise) == null)
+            return null;
+        express.setReceivewise_id(receivewise.getId());
 
-        // 安排派件快递员，存储收件信息
-        express.setReceivewise_id(receivewise_id);
-
-        // 更新物流状态
+        // 初始化物流状态（待揽收）
         express.setStatus(ExpressStatus.status_1.getStatus());
 
-        return null;
+        // 初始化下单时间
+        express.setOrder_time(new Date());
+
+        if (expressMapper.insert(express) > 0)
+            return express.getId();
+        else
+            return null;
     }
 
     @Override

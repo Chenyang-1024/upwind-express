@@ -1,10 +1,19 @@
 package com.upwind.service;
 
 import com.upwind.pojo.Courier;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
 public interface CourierService {
+
+    /**
+     * 新增快递员信息，等待网点审核
+     * 返回 id 给 Controller ，Controller 拿到 id 后合成工号，再请求更新快递员信息
+     * @param courier
+     * @return
+     */
+    Integer insertCourier (Courier courier);
 
     /**
      * 根据快递员 id 获取快递员信息
@@ -26,7 +35,7 @@ public interface CourierService {
      * @param password  快递员输入的密码
      * @return          快递员输入的 id 和密码是否匹配。 true 表示匹配成功，false 表示匹配失败
      */
-    boolean courierLogin(String phone, String password);
+    Courier courierLogin(String phone, String password);
 
     /**
      * 根据网点 id 获取网点内的所有快递员

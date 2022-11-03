@@ -18,6 +18,15 @@ public class CourierServiceImpl implements CourierService {
     public CourierMapper courierMapper;
 
     @Override
+    public Integer insertCourier(Courier courier) {
+        int row = courierMapper.insert(courier);
+        if (row > 0)
+            return courier.getId();
+        else
+            return null;
+    }
+
+    @Override
     public Courier getCourierById(Integer id) {
         return courierMapper.selectByPrimaryKey(id);
     }
@@ -28,14 +37,17 @@ public class CourierServiceImpl implements CourierService {
     }
 
     @Override
-    public boolean courierLogin(String phone, String password) {
+    public Courier courierLogin(String phone, String password) {
         //从数据库中查询出手机号对应的快递员信息
         CourierExample courierExample = new CourierExample();
         courierExample.createCriteria().andPhoneEqualTo(phone);
-        List<Courier> result = courierMapper.selectByExample(courierExample);
-
-        //查询到信息且密码一致的时候返回 true，否则返回 false
-        return result.size() != 0 && result.get(0).getPassword().equals(password);
+        List<Courier> courierList = courierMapper.selectByExample(courierExample);
+        if (courierList.size() > 0) {
+            Courier courier = courierList.get(0);
+            if (password.equals(courier.getPassword()))
+                return courier;
+        }
+        return null;
     }
 
     @Override

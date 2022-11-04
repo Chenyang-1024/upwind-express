@@ -16,6 +16,14 @@ public class ConsumerServiceImpl implements ConsumerService {
     private ConsumerMapper consumerMapper;
 
     @Override
+    public Integer insertConsumer(Consumer consumer) {
+        int row = consumerMapper.insert(consumer);
+        if (row > 0)
+            return consumer.getId();
+        return null;
+    }
+
+    @Override
     public Consumer getConsumerById(Integer id) {
         return consumerMapper.selectByPrimaryKey(id);
     }
@@ -36,6 +44,16 @@ public class ConsumerServiceImpl implements ConsumerService {
             if (password.equals(consumer.getPassword()))
                 return consumer;
         }
+        return null;
+    }
+
+    @Override
+    public Consumer getConsumerByPhone(String phone) {
+        ConsumerExample consumerExample = new ConsumerExample();
+        consumerExample.createCriteria().andPhoneEqualTo(phone);
+        List<Consumer> consumerList = consumerMapper.selectByExample(consumerExample);
+        if (consumerList.size() > 0)
+            return consumerList.get(0);
         return null;
     }
 

@@ -7,6 +7,13 @@ import java.util.List;
 public interface ConsumerService {
 
     /**
+     *
+     * @param consumer
+     * @return
+     */
+    Integer insertConsumer (Consumer consumer);
+
+    /**
      * 根据 id 获取用户信息
      * @param id
      * @return
@@ -27,6 +34,13 @@ public interface ConsumerService {
      * @return          用户输入的 id 和密码是否匹配。 true 表示匹配成功，false 表示匹配失败
      */
     Consumer consumerLogin(String phone, String password);
+
+    /**
+     *
+     * @param phone
+     * @return
+     */
+    Consumer getConsumerByPhone (String phone);
 
     /**
      * 获取所有用户信息

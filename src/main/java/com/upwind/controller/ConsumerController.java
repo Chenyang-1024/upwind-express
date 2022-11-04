@@ -1,6 +1,8 @@
 package com.upwind.controller;
 
+import com.upwind.pojo.Consumer;
 import com.upwind.service.ConsumerService;
+import com.upwind.utils.MD5Util;
 import com.upwind.utils.ResponseMessage;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,18 @@ public class ConsumerController {
                                      @RequestParam("name") String name,
                                      @RequestParam("gender") String gender) {
 
-        // TODO
-        return null;
+        if (consumerService.getConsumerByPhone(phone) != null)
+            return ResponseMessage.error("请勿重复注册");
+        String psw = MD5Util.getMD5(password);
+        Consumer consumer = new Consumer();
+        consumer.setId(null);
+        consumer.setName(name);
+        consumer.setPhone(phone);
+        consumer.setGender(gender);
+        consumer.setPassword(psw);
+        if (consumerService.insertConsumer(consumer) == null)
+            return ResponseMessage.error("注册失败");
+        return ResponseMessage.success("注册成功");
 
     }
 

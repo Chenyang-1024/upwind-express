@@ -58,6 +58,7 @@ public class LoginController {
             Consumer consumer = consumerService.consumerLogin(phone, MD5Util.getMD5(password));
             if (consumer == null)
                 return ResponseMessage.error("输入账号/密码有误");
+            consumer.setPassword(null);
             session.setAttribute("userIdentity", identity);
             session.setAttribute("loginUser", consumer);
             return ResponseMessage
@@ -67,6 +68,7 @@ public class LoginController {
             Courier courier = courierService.courierLogin(phone, MD5Util.getMD5(password));
             if (courier == null)
                 return ResponseMessage.error("输入账号/密码有误");
+            courier.setPassword(null);
             session.setAttribute("userIdentity", identity);
             session.setAttribute("loginUser", courier);
             return ResponseMessage
@@ -76,6 +78,7 @@ public class LoginController {
             Outlet outlet = outletService.outletLogin(phone, MD5Util.getMD5(password));
             if (outlet == null)
                 return ResponseMessage.error("输入账号/密码有误");
+            outlet.setPassword(null);
             session.setAttribute("userIdentity", identity);
             session.setAttribute("loginUser", outlet);
             return ResponseMessage
@@ -104,6 +107,7 @@ public class LoginController {
         Manager manager = managerService.managerLogin(account, MD5Util.getMD5(password));
         if (manager == null)
             return ResponseMessage.error("输入账号/密码有误");
+        manager.setPassword(null);
         session.setAttribute("userIdentity", 3);
         session.setAttribute("loginUser", manager);
         return ResponseMessage

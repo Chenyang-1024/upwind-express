@@ -27,6 +27,11 @@ public class CourierServiceImpl implements CourierService {
     }
 
     @Override
+    public boolean deleteCourierById(Integer id) {
+        return courierMapper.deleteByPrimaryKey(id) > 0;
+    }
+
+    @Override
     public Courier getCourierById(Integer id) {
         return courierMapper.selectByPrimaryKey(id);
     }
@@ -55,6 +60,16 @@ public class CourierServiceImpl implements CourierService {
         CourierExample courierExample = new CourierExample();
         courierExample.createCriteria().andOutlet_idEqualTo(id);
         return courierMapper.selectByExample(courierExample);
+    }
+
+    @Override
+    public Courier getCourierByPhone(String phone) {
+        CourierExample courierExample = new CourierExample();
+        courierExample.createCriteria().andPhoneEqualTo(phone);
+        List<Courier> courierList = courierMapper.selectByExample(courierExample);
+        if (courierList.size() > 0)
+            return courierList.get(0);
+        return null;
     }
 
     @Override

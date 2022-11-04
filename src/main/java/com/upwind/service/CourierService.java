@@ -23,6 +23,13 @@ public interface CourierService {
     Courier getCourierById(Integer id);
 
     /**
+     * 根据 id 删除快递员信息
+     * @param id
+     * @return
+     */
+    boolean deleteCourierById(Integer id);
+
+    /**
      * 更新快递员的信息
      * @param courier   快递员对象
      * @return          上传成功 true , 上传失败 false
@@ -43,6 +50,14 @@ public interface CourierService {
      * @return          网点内的快递员列表
      */
     List<Courier> getCourierByOutletId(Integer id);
+
+    /**
+     * 根据手机号获取快递员
+     * 业务主要用于防止重复注册
+     * @param phone
+     * @return
+     */
+    Courier getCourierByPhone(String phone);
 
     /**
      * 获取所有快递员信息

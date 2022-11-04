@@ -234,7 +234,8 @@ public class ExpressServiceImpl implements ExpressService {
         if (courierList == null || courierList.size() == 0)
             return null;
         for (Courier courier : courierList) {
-            List<CourierExpressDTO> courierExpressDTOList = getCourierExpressByStatus(courier.getId(), null, null);
+            // List<CourierExpressDTO> courierExpressDTOList = getCourierExpressByStatus(courier.getId(), null, null);
+            List<CourierExpressDTO> courierExpressDTOList = getCourierExpressByStatus(courier.getId(), null, order_no);
             for (CourierExpressDTO courierExpressDTO : courierExpressDTOList) {
                 outletExpressDTOList.add(
                         new OutletExpressDTO(

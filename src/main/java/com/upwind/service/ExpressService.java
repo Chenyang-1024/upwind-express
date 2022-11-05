@@ -42,6 +42,13 @@ public interface ExpressService {
     boolean updateExpress (DetailExpressDTO detailExpressDTO);
 
     /**
+     *
+     * @param id
+     * @return
+     */
+    Express getExpressById (Integer id);
+
+    /**
      * 用户端
      * 查询寄出订单或收到订单，可用订单号加以筛选
      * flag = 0 时，查询当前用户寄出订单列表

@@ -90,6 +90,11 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     @Override
+    public Express getExpressById(Integer id) {
+        return expressMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public List<ConsumerExpressDTO> getConsumerExpressByOrder(Integer consumer_id, int flag, String order_no) {
         List<ConsumerExpressDTO> consumerExpressDTOList = new ArrayList<>();
 
@@ -218,8 +223,20 @@ public class ExpressServiceImpl implements ExpressService {
                 courierExpressDTOList_send.removeIf(courierExpressDTO -> !courierExpressDTO.getExpress().getStatus().equals(status));
             return courierExpressDTOList_send;
         }
+        // 待用户付款状态
+        else if (status.equals(ExpressStatus.status_2.getStatus())) {
+            if (courierExpressDTOList_send.size() != 0)
+                courierExpressDTOList_send.removeIf(courierExpressDTO -> !courierExpressDTO.getExpress().getStatus().equals(status));
+            return courierExpressDTOList_send;
+        }
         // 待妥投状态（正在派件）
-        else if (status.equals(ExpressStatus.status_3.getStatus())) {
+        else if (status.equals(ExpressStatus.status_4.getStatus())) {
+            if (courierExpressDTOList_receive.size() != 0)
+                courierExpressDTOList_receive.removeIf(courierExpressDTO -> !courierExpressDTO.getExpress().getStatus().equals(status));
+            return courierExpressDTOList_receive;
+        }
+        // 用户已签收状态
+        else if (status.equals(ExpressStatus.status_5.getStatus())) {
             if (courierExpressDTOList_receive.size() != 0)
                 courierExpressDTOList_receive.removeIf(courierExpressDTO -> !courierExpressDTO.getExpress().getStatus().equals(status));
             return courierExpressDTOList_receive;

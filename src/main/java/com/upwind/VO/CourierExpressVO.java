@@ -5,22 +5,27 @@ import java.util.Date;
 public class CourierExpressVO {
 
     private Integer express_id;
+    private String order_no;
     private String sender_name;
     private String receiver_name;
     private String sender_phone;
     private String receiver_phone;
     private String sender_addr;
     private String receiver_addr;
-    // 表示订单是经该快递员收寄还是经快递员投递
+
+    // 订单物流状态
     private String status;
-    private String action;
+
+    // 表示订单是经该快递员收寄还是经快递员投递
+    private Integer action;
     private Float freight;
     private Date order_time;
     private Date send_time;
     private Date receive_time;
 
-    public CourierExpressVO(Integer express_id, String sender_name, String receiver_name, String sender_phone, String receiver_phone, String sender_addr, String receiver_addr, String status, String action, Float freight, Date order_time, Date send_time, Date receive_time) {
+    public CourierExpressVO(Integer express_id, String order_no, String sender_name, String receiver_name, String sender_phone, String receiver_phone, String sender_addr, String receiver_addr, String status, Integer action, Float freight, Date order_time, Date send_time, Date receive_time) {
         this.express_id = express_id;
+        this.order_no = order_no;
         this.sender_name = sender_name;
         this.receiver_name = receiver_name;
         this.sender_phone = sender_phone;
@@ -41,6 +46,14 @@ public class CourierExpressVO {
 
     public void setExpress_id(Integer express_id) {
         this.express_id = express_id;
+    }
+
+    public String getOrder_no() {
+        return order_no;
+    }
+
+    public void setOrder_no(String order_no) {
+        this.order_no = order_no;
     }
 
     public String getSender_name() {
@@ -99,11 +112,11 @@ public class CourierExpressVO {
         this.status = status;
     }
 
-    public String getAction() {
+    public Integer getAction() {
         return action;
     }
 
-    public void setAction(String action) {
+    public void setAction(Integer action) {
         this.action = action;
     }
 
@@ -141,8 +154,9 @@ public class CourierExpressVO {
 
     @Override
     public String toString() {
-        return "CourierExpressDTO{" +
+        return "CourierExpressVO{" +
                 "express_id=" + express_id +
+                ", order_no='" + order_no + '\'' +
                 ", sender_name='" + sender_name + '\'' +
                 ", receiver_name='" + receiver_name + '\'' +
                 ", sender_phone='" + sender_phone + '\'' +
@@ -150,12 +164,11 @@ public class CourierExpressVO {
                 ", sender_addr='" + sender_addr + '\'' +
                 ", receiver_addr='" + receiver_addr + '\'' +
                 ", status='" + status + '\'' +
-                ", action='" + action + '\'' +
+                ", action=" + action +
                 ", freight=" + freight +
                 ", order_time=" + order_time +
                 ", send_time=" + send_time +
                 ", receive_time=" + receive_time +
                 '}';
     }
-
 }

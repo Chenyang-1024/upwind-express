@@ -3,6 +3,7 @@ package com.upwind.service.impl;
 import com.upwind.mapper.ReceivewiseMapper;
 import com.upwind.pojo.Receivewise;
 import com.upwind.pojo.ReceivewiseExample;
+import com.upwind.pojo.Sendwise;
 import com.upwind.service.ReceivewiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,16 @@ public class ReceivewiseServiceImpl implements ReceivewiseService {
 
     @Override
     public boolean updateReceivewise(Receivewise receivewise) {
+        if (receivewise.getCourier_id() == null) {
+            Receivewise old_sendwise = receivewiseMapper.selectByPrimaryKey(receivewise.getId());
+            receivewise.setCity(receivewise.getCity() == null ? old_sendwise.getCity() : receivewise.getCity());
+            receivewise.setProvince(receivewise.getProvince() == null ? old_sendwise.getProvince() : receivewise.getProvince());
+            receivewise.setDistrict(receivewise.getDistrict() == null ? old_sendwise.getDistrict() : receivewise.getDistrict());
+            receivewise.setDetail_addr(receivewise.getDetail_addr() == null ? old_sendwise.getDetail_addr() : receivewise.getDetail_addr());
+            receivewise.setReceiver_id(receivewise.getReceiver_id() == null ? old_sendwise.getReceiver_id() : receivewise.getReceiver_id());
+            return receivewiseMapper.updateByPrimaryKey(receivewise) > 0;
+
+        }
         return receivewiseMapper.updateByPrimaryKeySelective(receivewise) > 0;
     }
 

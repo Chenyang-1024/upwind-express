@@ -37,12 +37,17 @@ public class OutletController {
     @Transactional
     @ResponseBody
     public ResponseMessage register (@RequestParam("title") String title,
-                                  @RequestParam("name") String name,
-                                  @RequestParam("phone") String phone,
-                                  @RequestParam("password") String password) {
+                                     @RequestParam("name") String name,
+                                     @RequestParam("phone") String phone,
+                                     @RequestParam("password") String password,
+                                     @RequestParam("province") String province,
+                                     @RequestParam("city") String city,
+                                     @RequestParam("district") String district,
+                                     @RequestParam("detail_addr") String detail_addr) {
 
-        if (outletService.getOutletByTitle(title) != null)
-            return ResponseMessage.error("网点账号已存在");
+        if (outletService.getOutletByTitle(title).size() > 0)
+            return ResponseMessage
+                    .error("网点账号已存在");
         String psw = MD5Util.getMD5(password);
         Outlet outlet = new Outlet();
         outlet.setId(null);
@@ -50,6 +55,10 @@ public class OutletController {
         outlet.setPhone(phone);
         outlet.setPassword(psw);
         outlet.setName(name);
+        outlet.setProvince(province);
+        outlet.setCity(city);
+        outlet.setDistrict(district);
+        outlet.setDetail_addr(detail_addr);
         if (outletService.insertOutlet(outlet) == null)
             return ResponseMessage.error("注册失败");
         else
@@ -57,8 +66,30 @@ public class OutletController {
 
     }
 
+//    @ApiOperation(value = "账号信息", response = ResponseMessage.class)
+//    @GetMapping("/accountInfo")
+//    @Transactional
+//    @ResponseBody
+//    // 这个其实不用请求，因为网点账号不像快递员，它要显示的信息已经全部存在 loginUser 里面了
+//    public ResponseMessage queryOutletAccountInfo (HttpServletRequest request) {
+//
+//        HttpSession session = request.getSession();
+//        if (session.getAttribute("loginUser") != null && session.getAttribute("userIdentity") != null) {
+//            int identity = (int) session.getAttribute("userIdentity");
+//            if (identity == 2) {
+//                Outlet outlet = (Outlet) session.getAttribute("loginUser");
+//
+//            } else {
+//                return ResponseMessage.error("当前登录身份权限无操作权限");
+//            }
+//        } else {
+//            return ResponseMessage.notLogin();
+//        }
+//
+//    }
+
     @ApiOperation(value = "网点信息修改", response = ResponseMessage.class)
-    @PutMapping("/updateInfo")
+    @PutMapping("/updateOutlet")
     @Transactional
     @ResponseBody
     public ResponseMessage update (@RequestBody OutletInfoVO outletInfoVO, HttpServletRequest request) {
@@ -132,7 +163,7 @@ public class OutletController {
                 }
                 return ResponseMessage
                         .success("查询成功")
-                        .addObject("courierInfoVOList", courierInfoVOList);
+                        .addObject("courier_list", courierInfoVOList);
             } else {
                 return ResponseMessage.error("当前登录身份权限无法查看列表");
             }
@@ -143,7 +174,7 @@ public class OutletController {
     }
 
     @ApiOperation(value = "删除下属快递员", response = ResponseMessage.class)
-    @PutMapping("/deleteCourier/{courier_id}")
+    @DeleteMapping("/deleteCourier/{courier_id}")
     @Transactional
     @ResponseBody
     // 按照逻辑，删除下属快递员只是把快递员的 outlet_id 设置为 null 即可, 但是由于数据库里快递订单是通过快递员与网点联系在一起的
@@ -209,7 +240,7 @@ public class OutletController {
     }
 
     @ApiOperation(value = "查询网点经手快递", response = ResponseMessage.class)
-    @PutMapping("/expressList")
+    @GetMapping("/expressList")
     @Transactional
     @ResponseBody
     public ResponseMessage queryExpressList (@RequestParam(value = "order_no", required = false) String order_no,
@@ -223,7 +254,7 @@ public class OutletController {
                 List<OutletExpressDTO> outletExpressDTOList = expressService.getExpressByOutletId(outlet.getId(), order_no);
                 return ResponseMessage
                         .success("查询成功")
-                        .addObject("expressList", outletExpressDTOList);
+                        .addObject("express_list", outletExpressDTOList);
             } else {
                 return ResponseMessage.error("当前登录身份权限无法查看列表");
             }

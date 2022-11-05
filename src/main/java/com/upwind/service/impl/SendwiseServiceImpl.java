@@ -31,6 +31,16 @@ public class SendwiseServiceImpl implements SendwiseService {
 
     @Override
     public boolean updateSendwise(Sendwise sendwise) {
+        if (sendwise.getCourier_id() == null) {
+            Sendwise old_sendwise = sendwiseMapper.selectByPrimaryKey(sendwise.getId());
+            sendwise.setCity(sendwise.getCity() == null ? old_sendwise.getCity() : sendwise.getCity());
+            sendwise.setProvince(sendwise.getProvince() == null ? old_sendwise.getProvince() : sendwise.getProvince());
+            sendwise.setDistrict(sendwise.getDistrict() == null ? old_sendwise.getDistrict() : sendwise.getDistrict());
+            sendwise.setDetail_addr(sendwise.getDetail_addr() == null ? old_sendwise.getDetail_addr() : sendwise.getDetail_addr());
+            sendwise.setSender_id(sendwise.getSender_id() == null ? old_sendwise.getSender_id() : sendwise.getSender_id());
+            return sendwiseMapper.updateByPrimaryKey(sendwise) > 0;
+
+        }
         return sendwiseMapper.updateByPrimaryKeySelective(sendwise) > 0;
     }
 

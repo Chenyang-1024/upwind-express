@@ -38,6 +38,17 @@ public class CourierServiceImpl implements CourierService {
 
     @Override
     public boolean updateCourier(Courier courier) {
+        if (courier.getOutlet_id() == null) {       // 网点删除下属快递员时，需要将快递员的 outlet_id 设为 null
+            Courier old_courier = courierMapper.selectByPrimaryKey(courier.getId());
+            courier.setPassword(courier.getPassword() == null ? old_courier.getPassword() : courier.getPassword());
+            courier.setPhone(courier.getPhone() == null ? old_courier.getPhone() : courier.getPhone());
+            courier.setGender(courier.getGender() == null ? old_courier.getGender() : courier.getGender());
+            courier.setApproved_flag(courier.getApproved_flag() == null ? old_courier.getApproved_flag() : courier.getApproved_flag());
+            courier.setIdentity_num(courier.getIdentity_num() == null ? old_courier.getIdentity_num() : courier.getIdentity_num());
+            courier.setJob_no(courier.getJob_no() == null ? old_courier.getJob_no() : courier.getJob_no());
+            courier.setName(courier.getName() == null ? old_courier.getName() : courier.getName());
+            return courierMapper.updateByPrimaryKey(courier) > 0;
+        }
         return courierMapper.updateByPrimaryKeySelective(courier) > 0;
     }
 

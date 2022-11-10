@@ -6,7 +6,7 @@ use Upwind_Express;
 CREATE TABLE consumer (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   phone varchar(11) NOT NULL COMMENT '用户手机号/账号',
-  password varchar(25) NOT NULL COMMENT '账号密码',
+  password varchar(50) NOT NULL COMMENT '账号密码',
   name varchar(10) NOT NULL COMMENT '用户姓名',
   gender varchar(5) NOT NULL COMMENT '用户性别',
   identity_num varchar(18) DEFAULT NULL COMMENT '用户身份证号',
@@ -29,12 +29,12 @@ CREATE TABLE outlet (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '网点id',
   title varchar(100) NOT NULL COMMENT '网点名称',
   phone varchar(11) NOT NULL COMMENT '负责人手机号/账号',
-  password varchar(25) NOT NULL COMMENT '账号密码',
+  password varchar(50) NOT NULL COMMENT '账号密码',
   name varchar(10) NOT NULL COMMENT '负责人姓名',
-  province varchar(20) NOT NULL COMMENT '省',
-  city varchar(20) NOT NULL COMMENT '市',
-  district varchar(20) NOT NULL COMMENT '县/区',
-  detail_addr varchar(50) NOT NULL COMMENT '详细地址',
+  province varchar(20) DEFAULT NULL COMMENT '省',
+  city varchar(20) DEFAULT NULL COMMENT '市',
+  district varchar(20) DEFAULT NULL COMMENT '县/区',
+  detail_addr varchar(50) DEFAULT NULL COMMENT '详细地址',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -42,12 +42,12 @@ CREATE TABLE courier (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '快递员id',
   job_no varchar(11) DEFAULT NULL COMMENT '工号',
   phone varchar(11) NOT NULL COMMENT '快递员手机号/账号',
-  password varchar(25) NOT NULL COMMENT '账号密码',
+  password varchar(50) NOT NULL COMMENT '账号密码',
   name varchar(10) NOT NULL COMMENT '快递员姓名',
   gender varchar(5) NOT NULL COMMENT '快递员性别',
   identity_num varchar(18) DEFAULT NULL COMMENT '快递员身份证号',
   approved_flag int(1) NOT NULL COMMENT '审核是否通过',
-  outlet_id int(10) NOT NULL COMMENT '网点id',
+  outlet_id int(10) DEFAULT NULL COMMENT '网点id',
   PRIMARY KEY(id),
   CONSTRAINT fk_outlet_courier FOREIGN KEY (outlet_id) REFERENCES outlet (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -98,6 +98,6 @@ CREATE TABLE express (
 CREATE TABLE manager (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '管理员id',
   account varchar(11) DEFAULT NULL COMMENT '管理员账号',
-  password varchar(25) NOT NULL COMMENT '账号密码',
+  password varchar(50) NOT NULL COMMENT '账号密码',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8

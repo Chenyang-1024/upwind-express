@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping("/courier")
@@ -85,13 +82,17 @@ public class CourierController {
             if (identity == 1) {
                 Courier courier = (Courier) session.getAttribute("loginUser");
                 String outlet_title = null;
+                Map<String, Object> map = new HashMap<>();
+
                 if (courier.getOutlet_id() != null) {
                     Outlet outlet = outletService.getOutletById(courier.getOutlet_id());
                     outlet_title = outlet.getTitle();
                 }
+                map.put("courier", courierService.getCourierById(courier.getId()));
+                map.put("outlet_title", outlet_title);
                 return ResponseMessage
                         .success("处理成功")
-                        .addObject("outlet_title", outlet_title);
+                        .addObject("accountInfo", map);
             } else {
                 return ResponseMessage.error("当前登录身份权限无操作权限");
             }

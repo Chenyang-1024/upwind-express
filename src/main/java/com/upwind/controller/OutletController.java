@@ -66,27 +66,30 @@ public class OutletController {
 
     }
 
-//    @ApiOperation(value = "账号信息", response = ResponseMessage.class)
-//    @GetMapping("/accountInfo")
-//    @Transactional
-//    @ResponseBody
-//    // 这个其实不用请求，因为网点账号不像快递员，它要显示的信息已经全部存在 loginUser 里面了
-//    public ResponseMessage queryOutletAccountInfo (HttpServletRequest request) {
-//
-//        HttpSession session = request.getSession();
-//        if (session.getAttribute("loginUser") != null && session.getAttribute("userIdentity") != null) {
-//            int identity = (int) session.getAttribute("userIdentity");
-//            if (identity == 2) {
-//                Outlet outlet = (Outlet) session.getAttribute("loginUser");
-//
-//            } else {
-//                return ResponseMessage.error("当前登录身份权限无操作权限");
-//            }
-//        } else {
-//            return ResponseMessage.notLogin();
-//        }
-//
-//    }
+    @ApiOperation(value = "账号信息", response = ResponseMessage.class)
+    @GetMapping("/accountInfo")
+    @Transactional
+    @ResponseBody
+    // 这个其实不用请求，因为网点账号不像快递员，它要显示的信息已经全部存在 loginUser 里面了
+    public ResponseMessage queryOutletAccountInfo (HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if (session.getAttribute("loginUser") != null && session.getAttribute("userIdentity") != null) {
+            int identity = (int) session.getAttribute("userIdentity");
+            if (identity == 2) {
+                Outlet outlet = (Outlet) session.getAttribute("loginUser");
+                outlet = outletService.getOutletById(outlet.getId());
+                return ResponseMessage
+                        .success("处理成功")
+                        .addObject("outlet", outlet);
+            } else {
+                return ResponseMessage.error("当前登录身份权限无操作权限");
+            }
+        } else {
+            return ResponseMessage.notLogin();
+        }
+
+    }
 
     @ApiOperation(value = "网点信息修改", response = ResponseMessage.class)
     @PutMapping("/updateOutlet")
@@ -116,8 +119,10 @@ public class OutletController {
                 }
                 if (!outletService.updateOutlet(new_outlet))
                     return ResponseMessage.error("修改失败");
-                else
+                else {
+                    session.setAttribute("loginUser", outletService.getOutletById(outlet.getId()));
                     return ResponseMessage.success("修改成功");
+                }
             } else {
                 return ResponseMessage.error("当前登录身份权限无操作权限");
             }
@@ -221,10 +226,10 @@ public class OutletController {
                     return ResponseMessage.error("无效审核意见");
                 Outlet outlet = (Outlet) session.getAttribute("loginUser");
                 Courier courier = courierService.getCourierById(courier_id);
-                if (courier.getOutlet_id().equals(outlet.getId()))
-                    courier.setOutlet_id(null);
-                else
-                    return ResponseMessage.error("该快递员非本网点下属快递员");
+//                if (courier.getOutlet_id().equals(outlet.getId()))
+//                    courier.setOutlet_id(null);
+//                else
+//                    return ResponseMessage.error("该快递员非本网点下属快递员");
                 courier.setApproved_flag(check_op);
                 if (!courierService.updateCourier(courier))
                     return ResponseMessage.error("操作失败");

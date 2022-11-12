@@ -73,7 +73,7 @@ public class LoginController {
             session.setAttribute("loginUser", courier);
             return ResponseMessage
                     .success("登录成功")
-                    .addObject("consumer", courier);
+                    .addObject("courier", courier);
         } else {
             Outlet outlet = outletService.outletLogin(phone, MD5Util.getMD5(password));
             if (outlet == null)
@@ -83,7 +83,7 @@ public class LoginController {
             session.setAttribute("loginUser", outlet);
             return ResponseMessage
                     .success("登录成功")
-                    .addObject("consumer", outlet);
+                    .addObject("outlet", outlet);
         }
 
     }

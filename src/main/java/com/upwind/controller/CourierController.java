@@ -275,7 +275,7 @@ public class CourierController {
     }
 
     @ApiOperation(value = "揽收快递，更新快递订单信息", response = ResponseMessage.class)
-    @PutMapping("/updateExpress/{express_id}")
+    @PostMapping("/updateExpress/{express_id}")
     @Transactional
     @ResponseBody
     public ResponseMessage updateExpress (@PathVariable Integer express_id,

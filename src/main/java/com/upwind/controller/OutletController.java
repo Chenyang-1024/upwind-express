@@ -211,7 +211,7 @@ public class OutletController {
     }
 
     @ApiOperation(value = "审核快递员身份", response = ResponseMessage.class)
-    @PutMapping("/checkCourier/{courier_id}")
+    @PostMapping("/checkCourier/{courier_id}")
     @Transactional
     @ResponseBody
     public ResponseMessage checkCourier (@PathVariable Integer courier_id,

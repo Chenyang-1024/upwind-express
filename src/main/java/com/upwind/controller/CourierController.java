@@ -283,6 +283,7 @@ public class CourierController {
                                           @RequestParam(value = "category", required = false) String category,
                                           @RequestParam(value = "weight", required = false) Float weight,
                                           @RequestParam(value = "freight", required = false) Float freight,
+                                          @RequestParam(value = "status", required = false) Integer status,
                                           HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -296,7 +297,12 @@ public class CourierController {
                 express.setCategory(category);
                 express.setWeight(weight);
                 express.setFreight(freight);
-                express.setStatus(ExpressStatus.status_3.getStatus());
+                if (status == null)         // 快递员揽收
+                    express.setStatus(ExpressStatus.status_3.getStatus());
+                else {
+                    if (status == 5)        // 快递员确认送达
+                        express.setStatus(ExpressStatus.status_5.getStatus());
+                }
                 express.setSend_time(new Date());
                 if (expressService.updateExpress(new DetailExpressDTO(express,
                                 sendwiseService.getSendwiseById(express.getSendwise_id()),

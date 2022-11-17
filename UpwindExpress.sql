@@ -81,7 +81,7 @@ CREATE TABLE receivewise (
 CREATE TABLE express (
   id int(10) NOT NULL AUTO_INCREMENT COMMENT '快递id',
   order_no varchar(11) DEFAULT NULL COMMENT '快递单号',
-  category varchar(20) DEFAULT NULL COMMENT '物品类型',
+  category varchar(20) NOT NULL COMMENT '物品类型',
   weight float(7,3) DEFAULT NULL COMMENT '快递重量',
   freight float(7,2) DEFAULT NULL COMMENT '快递运费',
   status varchar(10) NOT NULL COMMENT '快递状态',

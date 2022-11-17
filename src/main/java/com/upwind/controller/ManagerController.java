@@ -278,10 +278,8 @@ public class ManagerController {
                 //定义返回的数据
                 List<Express> expressList;
 
-
                 //查询快递信息
                 if((expressList = expressService.getAllExpress()) != null){
-                    System.out.println(expressList.get(0).getOrder_time());
                     //查询成功,返回信息
                     return ResponseMessage.success("查询成功")
                                           .addObject("expressList", expressList);

@@ -233,7 +233,6 @@ public class CourierController {
                 }
                 for (CourierExpressDTO courierExpressDTO : courierExpressDTOList) {
                     Express express = courierExpressDTO.getExpress();
-                    System.out.println(express.getOrder_time());
                     Consumer sender = courierExpressDTO.getSender();
                     Consumer receiver = courierExpressDTO.getReceiver();
                     Sendwise sendwise = courierExpressDTO.getSendwise();

@@ -1,7 +1,5 @@
 package com.upwind.VO;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class ConsumerExpressVO {
@@ -76,7 +74,6 @@ public class ConsumerExpressVO {
         this.freight = freight;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd kk:mm:ss",timezone = "GMT+8")
     public Date getOrder_time() {
         return order_time;
     }
@@ -85,7 +82,6 @@ public class ConsumerExpressVO {
         this.order_time = order_time;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd kk:mm:ss",timezone = "GMT+8")
     public Date getSend_time() {
         return send_time;
     }
@@ -94,7 +90,6 @@ public class ConsumerExpressVO {
         this.send_time = send_time;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd kk:mm:ss",timezone = "GMT+8")
     public Date getReceive_time() {
         return receive_time;
     }

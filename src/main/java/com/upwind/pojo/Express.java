@@ -1,5 +1,7 @@
 package com.upwind.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Express {
@@ -254,6 +256,7 @@ public class Express {
      *
      * @mbg.generated Sat Oct 29 16:34:20 CST 2022
      */
+    @JsonFormat(pattern="yyyy-MM-dd kk:mm:ss",timezone = "GMT+8")
     public Date getOrder_time() {
         return order_time;
     }
@@ -278,6 +281,7 @@ public class Express {
      *
      * @mbg.generated Sat Oct 29 16:34:20 CST 2022
      */
+    @JsonFormat(pattern="yyyy-MM-dd kk:mm:ss",timezone = "GMT+8")
     public Date getSend_time() {
         return send_time;
     }
@@ -302,6 +306,7 @@ public class Express {
      *
      * @mbg.generated Sat Oct 29 16:34:20 CST 2022
      */
+    @JsonFormat(pattern="yyyy-MM-dd kk:mm:ss",timezone = "GMT+8")
     public Date getReceive_time() {
         return receive_time;
     }
